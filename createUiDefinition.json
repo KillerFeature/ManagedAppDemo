@@ -57,7 +57,8 @@
     ],
     "outputs": {
       "location": "[location()]",
-      "tagValues": {"env": "[steps('org').environment]", "owner":"[steps('org').owner]"}
+      "tagValues": {"env": "[steps('org').environment]", "owner":"[steps('org').owner]"},
+      "env": "[steps('org').environment]", "owner":"[steps('org').owner]"
     }
   }
 }

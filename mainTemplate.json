@@ -36,7 +36,9 @@
       },
       "tagValues": {
           "type": "object"
-      }
+      },
+      "env": {"type": "string"},
+      "owner":{"type": "string"}
   },
   "variables": {
       "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
@@ -51,7 +53,9 @@
           "name": "[variables('storageAccountName')]",
           "apiVersion": "2018-07-01",
           "location": "[parameters('location')]",
-          "tags": "[parameters('tagValues')]",
+          "tags": {"env": "[parameters('env')]", "owner": "[parameters('owner')]"
+          
+          },
           "properties": {
               "accessTier": "[parameters('accessTier')]",
               "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"
