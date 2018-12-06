@@ -1,72 +1,63 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
   "handler": "Microsoft.Compute.MultiVm",
   "version": "0.1.2-preview",
   "parameters": {
-    "basics": [],
+    "basics": [
+    ],
     "steps": [
       {
-        "name": "governance",
-        "label": "Governance <Label>",
+        "name": "org",
+        "label": "Cloud Governance",
         "subLabel": {
-          "preValidation": "Configure you ressource group <sublabel>",
-          "postValidation": "Done",
-          "elements": [
-            {
-              "name": "InfoBox",
-              "type": "Microsoft.Common.InfoBox",
-              "visible": true,
-              "options": {
-                "icon": "None",
-                "text": "Nullam eros mi, mollis in sollicitudin non, tincidunt sed enim. Sed et felis metus, rhoncus ornare nibh. Ut at magna leo.",
-                "uri": "https://www.microsoft.com"
-              }
+          "preValidation": "Please fill in the Details",
+          "postValidation": "We are Done"
+        },
+        "elements": [
+          {
+            "name": "environment",
+            "type": "Microsoft.Common.OptionsGroup",
+            "label": "Select Environment",
+            "defaultValue": "Development",
+            "toolTip": "Tooltip",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Dev",
+                  "value": "dev"
+                },
+                {
+                  "label": "Test",
+                  "value": "tst"
+                },
+                {
+                  "label": "Prod",
+                  "value": "prod"
+                }
+              ],
+              "required": true
             },
-            {
-              "name": "environment",
-              "type": "Microsoft.Common.OptionsGroup",
-              "label": "Select Environment",
-              "defaultValue": "Development",
-              "toolTip": "",
-              "constraints": {
-                "allowedValues": [
-                  {
-                    "label": "Development",
-                    "value": "dev"
-                  },
-                  {
-                    "label": "Test",
-                    "value": "tst"
-                  },
-                  {
-                    "label": "Production",
-                    "value": "prod"
-                  }
-                ],
-                "required": true
-              },
-              "visible": true
+            "visible": true
+          },
+          {
+            "name": "owner",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Owner Email",
+            "defaultValue": "test@test.dk",
+            "toolTip": "Enter email here",
+            "constraints": {
+              "required": true,
+              "regex": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+              "validationMessage": "Only valid email adresses"
             },
-            {
-              "name": "owner",
-              "type": "Microsoft.Common.TextBox",
-              "label": "Owner Email",
-              "defaultValue": "",
-              "toolTip": "Enter email here",
-              "constraints": {
-                "required": true,
-                "regex": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
-                "validationMessage": "Only valid email adresses"
-              },
-              "visible": true
-            }
-          ]
-        }
+            "visible": true
+          }
+        ]
       }
+
     ],
     "outputs": {
-      "ownerEmail": "[steps('governance').owner]",
-      "environment": "[steps('governance').environment]"
+      "location": "[location()]",
+      "tagValues": {"env": "[steps('org').environment]", "owner":"[steps('org').owner]"}
     }
   }
 }

@@ -1,32 +1,63 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
   "parameters": {
-    "rgName": {
-      "type": "string"
-    },
-    "rgLocation": {
-      "type": "string"
-    },
-    "ownerEmail": {
-      "type": "string"
-    },
-    "environment": {
-      "type": "string"
-    }
+      "location": {
+          "defaultValue": "[resourceGroup().location]",
+          "type": "String",
+          "metadata": {
+              "description": "Location for all resources."
+          }
+      },
+      "storageAccountType": {
+          "defaultValue": "Standard_LRS",
+          "allowedValues": [
+              "Standard_LRS",
+              "Standard_GRS",
+              "Standard_ZRS",
+              "Premium_LRS"
+          ],
+          "type": "String",
+          "metadata": {
+              "description": "Storage Account type"
+          }
+      },
+      "kind": {
+          "defaultValue": "StorageV2",
+          "type": "String"
+      },
+      "accessTier": {
+          "defaultValue": "hot",
+          "type": "String"
+      },
+      "supportsHttpsTrafficOnly": {
+          "defaultValue": "true",
+          "type": "Bool"
+      },
+      "tagValues": {
+          "type": "Object"
+      }
+  },
+  "variables": {
+      "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
   },
   "resources": [
-    {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2018-05-01",
-      "location": "[parameters('rgLocation')]",
-      "name": "[parameters('rgName')]",
-      "properties": {},
-      "tags": {
-        "Owner": "[parameters('ownerEmail')]",
-        "Environment": "[parameters('environment')]"
+      {
+          "type": "Microsoft.Storage/storageAccounts",
+          "sku": {
+              "name": "[parameters('storageAccountType')]"
+          },
+          "kind": "[parameters('kind')]",
+          "name": "[variables('storageAccountName')]",
+          "apiVersion": "2018-07-01",
+          "location": "[parameters('location')]",
+          "tags": "[parameters('tagValues')]",
+          "properties": {
+              "accessTier": "[parameters('accessTier')]",
+              "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"
+          },
+          "dependsOn": []
       }
-    }
   ],
-    "outputs": {}
+  "outputs": {}
 }
