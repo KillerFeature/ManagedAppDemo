@@ -4,7 +4,7 @@
   "parameters": {
       "location": {
           "defaultValue": "[resourceGroup().location]",
-          "type": "String",
+          "type": "string",
           "metadata": {
               "description": "Location for all resources."
           }
@@ -17,25 +17,25 @@
               "Standard_ZRS",
               "Premium_LRS"
           ],
-          "type": "String",
+          "type": "string",
           "metadata": {
               "description": "Storage Account type"
           }
       },
       "kind": {
           "defaultValue": "StorageV2",
-          "type": "String"
+          "type": "string"
       },
       "accessTier": {
           "defaultValue": "hot",
-          "type": "String"
+          "type": "string"
       },
       "supportsHttpsTrafficOnly": {
-          "defaultValue": "true",
-          "type": "Bool"
+          "defaultValue": true,
+          "type": "bool"
       },
       "tagValues": {
-          "type": "Object"
+          "type": "object"
       }
   },
   "variables": {
