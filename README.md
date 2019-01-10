@@ -9,3 +9,7 @@ https://shell.azure.com
 
 mkdir ~/clouddrive/ManagedApps
 cd ~/clouddrive/ManagedApps
+git clone https://github.com/KillerFeature/ManagedAppDemo.git
+
+# Testing 
+To test the managed app, use ./sideload-createuidef.sh 
