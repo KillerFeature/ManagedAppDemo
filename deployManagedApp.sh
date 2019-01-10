@@ -1,3 +1,4 @@
+rm ManagedApp.zip
 zip ManagedApp.zip createUiDefinition.json mainTemplate.json
 git add .
 git commit -m "new commit"
