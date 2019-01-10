@@ -22,4 +22,3 @@ az managedapp definition create \
   --description "Managed Azure Storage Account" \
   --authorizations "$groupid:$roleid" \
   --package-file-uri "https://github.com/KillerFeature/ManagedAppDemo/raw/master/ManagedApp.zip"
-
