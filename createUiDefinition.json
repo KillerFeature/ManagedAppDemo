@@ -12,6 +12,7 @@
           "preValidation": "Please fill in the Details",
           "postValidation": "We are Done"
         },
+        "bladeTitle": "This is a Blade Title",
         "elements": [
           {
             "name": "environment",
