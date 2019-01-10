@@ -52,8 +52,7 @@
             "visible": true
           }
         ]
-      }
-
+      },            
     ],
     "outputs": {
       "location": "[location()]",
