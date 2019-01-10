@@ -12,4 +12,6 @@ cd ~/clouddrive/ManagedApps
 git clone https://github.com/KillerFeature/ManagedAppDemo.git
 
 # Testing 
-To test the managed app, use ./sideload-createuidef.sh 
+To test the managed app, use ./sideload-createuidef.sh and paste the resulting url into a browser.
+
+
