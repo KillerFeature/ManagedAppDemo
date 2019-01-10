@@ -10,7 +10,7 @@ az group create --name appDefinitionGroup --location northeurope
 
 # Get Azure Active Directory group to manage the application
 groupid=$(az ad group show --group ManagedAppAdmins23462125 --query objectId --output tsv)
-roleid=$(az role definition list --name Owner --query [].name --output tsv)
+roleid=$(az role definition list --name Owner --query [].name --output tsv)
 
 # Create the definition for a managed application
 az managedapp definition create \
