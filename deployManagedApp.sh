@@ -15,7 +15,7 @@ roleid=$(az role definition list --name Owner --query [].name --output tsv)
 
 # Create the definition for a managed application
 az managedapp definition create \
-  --name "ManagedStorage02" \
+  --name "ManagedStorage03" \
   --location "northeurope" \
   --resource-group appDefinitionGroup \
   --lock-level ReadOnly \
