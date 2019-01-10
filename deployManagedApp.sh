@@ -1,3 +1,5 @@
+echo -n "Enter name of output file [$filename] > "
+
 zip ManagedApp.zip createUiDefinition.json mainTemplate.json
 git add .
 git commit -m "new commit"
@@ -9,7 +11,7 @@ git push origin master
 az group create --name appDefinitionGroup --location northeurope
 
 # Get Azure Active Directory group to manage the application
-groupid=$(az ad group show --group appManagers --query objectId --output tsv)
+groupid=$(az ad group show --group ManagedAppAdmins23462125 --query objectId --output tsv)
 
 # Get role
 roleid=$(az role definition list --name Owner --query [].name --output tsv)
