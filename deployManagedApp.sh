@@ -1,4 +1,3 @@
-echo -n "Enter name of output file [$filename] > "
 
 zip ManagedApp.zip createUiDefinition.json mainTemplate.json
 git add .
