@@ -34,11 +34,9 @@
           "defaultValue": true,
           "type": "bool"
       },
-      "tagValues": {
-          "type": "object"
-      },
       "env": {"type": "string"},
-      "owner":{"type": "string"}
+      "owner":{"type": "string"},
+      "costcenter":{"type":"string"}
   },
   "variables": {
       "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
@@ -53,9 +51,7 @@
           "name": "[variables('storageAccountName')]",
           "apiVersion": "2018-07-01",
           "location": "[parameters('location')]",
-          "tags": {"env": "[parameters('env')]", "owner": "[parameters('owner')]"
-          
-          },
+          "tags": {"env": "[parameters('env')]", "owner": "[parameters('owner')]", "costcenter": "[parameters('costcenter')]"},
           "properties": {
               "accessTier": "[parameters('accessTier')]",
               "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"

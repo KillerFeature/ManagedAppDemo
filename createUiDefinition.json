@@ -38,7 +38,35 @@
               "required": true
             },
             "visible": true
-          },
+          },{
+  "name": "CostCenter",
+  "type": "Microsoft.Common.DropDown",
+  "label": "Example drop down",
+  "defaultValue": "Value two",
+  "toolTip": "Select the costcenter for billing",
+  "constraints": {
+    "allowedValues": [
+      {
+        "label": "Development",
+        "value": "132233221"
+      },
+      {
+        "label": "Finance",
+        "value": "132233222"
+      },
+      {
+        "label": "Operations",
+        "value": "132233223"
+      },
+      {
+        "label": "Legal",
+        "value": "132233224"
+      }
+    ],
+    "required": true
+  },
+  "visible": true
+},
           {
             "name": "owner",
             "type": "Microsoft.Common.TextBox",
@@ -53,40 +81,12 @@
             "visible": true
           }
         ]
-      },            {
-                "name": "storageConfig",
-                "label": "Storage settings",
-                "subLabel": {
-                    "preValidation": "Configure the infrastructure settings",
-                    "postValidation": "Done"
-                },
-                "bladeTitle": "Storage settings",
-                "elements": [
-                    {
-                        "name": "storageAccounts",
-                        "type": "Microsoft.Storage.MultiStorageAccountCombo",
-                        "label": {
-                            "prefix": "Storage account name prefix",
-                            "type": "Storage account type"
-                        },
-                        "defaultValue": {
-                            "type": "Standard_LRS"
-                        },
-                        "constraints": {
-                            "allowedTypes": [
-                                "Premium_LRS",
-                                "Standard_LRS",
-                                "Standard_GRS"
-                            ]
-                        }
-                    }
-                ]
-            }
+      },            
     ],
     "outputs": {
       "location": "[location()]",
-      "tagValues": {"env": "[steps('org').environment]", "owner":"[steps('org').owner]"},
-      "env": "[steps('org').environment]", "owner":"[steps('org').owner]"
+      "env": "[steps('org').environment]", "owner":"[steps('org').owner]","costcenter": "[steps('org').CostCenter]"
+
     }
   }
 }
