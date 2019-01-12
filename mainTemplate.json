@@ -1,78 +1,94 @@
 {
-	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.0",
-	"parameters": {
-		"location": {
-			"defaultValue": "[resourceGroup().location]",
-			"type": "string",
-			"metadata": {
-				"description": "Location for all resources."
-			}
-		},
-		"storageAccountType": {
-			"defaultValue": "Standard_LRS",
-			"allowedValues": [
-				"Standard_LRS",
-				"Standard_GRS",
-				"Standard_ZRS",
-				"Premium_LRS"
-			],
-			"type": "string",
-			"metadata": {
-				"description": "Storage Account type"
-			}
-		},
-		"kind": {
-			"defaultValue": "StorageV2",
-			"type": "string"
-		},
-		"accessTier": {
-			"defaultValue": "hot",
-			"type": "string"
-		},
-		"supportsHttpsTrafficOnly": {
-			"defaultValue": true,
-			"type": "bool"
-		},
-		"env": {
-			"type": "string"
-		},
-		"owner": {
-			"type": "string"
-		},
-		"costcenter": {
-			"type": "string"
-		}
-	},
-	"variables": {
-		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
-		"fileShareUrl":"[concat('https://', [variables('storageAccountName')] , '.file.core.windows.net/')]"
-	},
-	"resources": [{
-		"type": "Microsoft.Storage/storageAccounts",
-		"sku": {
-			"name": "[parameters('storageAccountType')]"
-		},
-		"kind": "[parameters('kind')]",
-		"name": "[variables('storageAccountName')]",
-		"apiVersion": "2018-07-01",
-		"location": "[parameters('location')]",
-		"tags": {
-			"env": "[parameters('env')]",
-			"owner": "[parameters('owner')]",
-			"costcenter": "[parameters('costcenter')]"
-		},
-		"properties": {
-			"accessTier": "[parameters('accessTier')]",
-			"supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"
-		},
-		"dependsOn": []
-	}],
-	"outputs": {
-    "storageAccountName": {
-      "type": "string",
-      "value": "[variables('storageAccountName')]"
-    }, "windowsFileShareEndpoint":{"type": "string", "value": "[variables('fileShareUrl')]"}
-
-	}
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "defaultValue": "[resourceGroup().location]",
+            "type": "String",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "storageAccountType": {
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_ZRS",
+                "Premium_LRS"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "Storage Account type"
+            }
+        },
+        "kind": {
+            "defaultValue": "StorageV2",
+            "type": "String"
+        },
+        "accessTier": {
+            "defaultValue": "hot",
+            "type": "String"
+        },
+        "supportsHttpsTrafficOnly": {
+            "defaultValue": true,
+            "type": "Bool"
+        },
+        "env": {
+            "type": "String"
+        },
+        "owner": {
+            "type": "String"
+        },
+        "costcenter": {
+            "type": "String"
+        }
+    },
+    "variables": {
+        "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
+        "containerName": "[concat(uniquestring(resourceGroup().id), '-container')]",
+        "fileShareUrl": "[concat('https://', variables('storageAccountName') , '.file.core.windows.net/')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "[parameters('storageAccountType')]"
+            },
+            "kind": "[parameters('kind')]",
+            "name": "[variables('storageAccountName')]",
+            "apiVersion": "2018-07-01",
+            "location": "[parameters('location')]",
+            "tags": {
+                "env": "[parameters('env')]",
+                "owner": "[parameters('owner')]",
+                "costcenter": "[parameters('costcenter')]"
+            },
+            "properties": {
+                "accessTier": "[parameters('accessTier')]",
+                "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"
+            },
+            "resources": [
+                {
+                    "type": "blobServices/containers",
+                    "name": "[concat('default/', variables('containerName'))]",
+                    "apiVersion": "2018-03-01-preview",
+                    "dependsOn": [
+                        "[variables('storageAccountName')]"
+                    ]
+                }
+            ],
+            "dependsOn": []
+        }
+    ],
+    "outputs": {
+        "storageAccountName": {
+            "type": "String",
+            "value": "[variables('storageAccountName')]"
+        },
+        "windowsFileShareEndpoint": {
+            "type": "String",
+            "value": "[variables('fileShareUrl')]"
+        }
+    }
 }
