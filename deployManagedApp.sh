@@ -1,7 +1,7 @@
 rm ManagedApp.zip
 zip ManagedApp.zip createUiDefinition.json mainTemplate.json
-git add .
-git commit -m "new commit"
+git add ManagedApp.zip
+git commit -m "Zip Update"
 git push origin master
 
 
