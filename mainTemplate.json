@@ -45,7 +45,8 @@
 		}
 	},
 	"variables": {
-		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
+		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
+		"fileShareUrl":"[concat('https://', [variables('storageAccountName')] , '.file.core.windows.net/')]"
 	},
 	"resources": [{
 		"type": "Microsoft.Storage/storageAccounts",
@@ -67,5 +68,11 @@
 		},
 		"dependsOn": []
 	}],
-	"outputs": {}
+	"outputs": {
+    "storageAccountName": {
+      "type": "string",
+      "value": "[variables('storageAccountName')]"
+    }, "windowsFileShareEndpoint":{"type": "string", "value": "[variables('fileShareUrl')]"}
+
+	}
 }
