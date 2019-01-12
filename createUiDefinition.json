@@ -1,92 +1,89 @@
 {
-  "handler": "Microsoft.Compute.MultiVm",
-  "version": "0.1.2-preview",
-  "parameters": {
-    "basics": [
-    ],
-    "steps": [
-      {
-        "name": "org",
-        "label": "Cloud Governance",
-        "subLabel": {
-          "preValidation": "Please fill in the Details",
-          "postValidation": "We are Done"
-        },
-        "bladeTitle": "This is a Blade Title",
-        "elements": [
-          {
-            "name": "environment",
-            "type": "Microsoft.Common.OptionsGroup",
-            "label": "Select Environment",
-            "defaultValue": "Development",
-            "toolTip": "Tooltip",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "Dev",
-                  "value": "dev"
-                },
-                {
-                  "label": "Test",
-                  "value": "tst"
-                },
-                {
-                  "label": "Prod",
-                  "value": "prod"
-                }
-              ],
-              "required": true
-            },
-            "visible": true
-          },{
-  "name": "CostCenter",
-  "type": "Microsoft.Common.DropDown",
-  "label": "Example drop down",
-  "defaultValue": "Value two",
-  "toolTip": "Select the costcenter for billing",
-  "constraints": {
-    "allowedValues": [
-      {
-        "label": "Development",
-        "value": "132233221"
-      },
-      {
-        "label": "Finance",
-        "value": "132233222"
-      },
-      {
-        "label": "Operations",
-        "value": "132233223"
-      },
-      {
-        "label": "Legal",
-        "value": "132233224"
-      }
-    ],
-    "required": true
-  },
-  "visible": true
-},
-          {
-            "name": "owner",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Owner Email",
-            "defaultValue": "test@test.dk",
-            "toolTip": "Enter email here",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
-              "validationMessage": "Only valid email adresses"
-            },
-            "visible": true
-          }
-        ]
-      },            
-    ],
-    "outputs": {
-      "location": "[location()]",
-      "env": "[steps('org').environment]", "owner":"[steps('org').owner]","costcenter": "[steps('org').CostCenter]"
+	"handler": "Microsoft.Compute.MultiVm",
+	"version": "0.1.2-preview",
+	"parameters": {
+		"basics": [],
+		"steps": [{
+			"name": "org",
+			"label": "Cloud Governance",
+			"subLabel": {
+				"preValidation": "Please fill in the Details",
+				"postValidation": "We are Done"
+			},
+			"bladeTitle": "This is a Blade Title",
+			"elements": [{
+					"name": "environment",
+					"type": "Microsoft.Common.OptionsGroup",
+					"label": "Select Environment",
+					"defaultValue": "Development",
+					"toolTip": "Tooltip",
+					"constraints": {
+						"allowedValues": [{
+								"label": "Dev",
+								"value": "dev"
+							},
+							{
+								"label": "Test",
+								"value": "tst"
+							},
+							{
+								"label": "Prod",
+								"value": "prod"
+							}
+						],
+						"required": true
+					},
+					"visible": true
+				},
+				{
+					"name": "owner",
+					"type": "Microsoft.Common.TextBox",
+					"label": "Owner Email",
+					"defaultValue": "test@test.dk",
+					"toolTip": "Enter email here",
+					"constraints": {
+						"required": true,
+						"regex": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+						"validationMessage": "Only valid email adresses"
+					},
+					"visible": true
+				},
+				{
+					"name": "CostCenter",
+					"type": "Microsoft.Common.DropDown",
+					"label": "Example drop down",
+					"defaultValue": "Development",
+					"toolTip": "Select the costcenter for billing",
+					"constraints": {
+						"allowedValues": [{
+								"label": "Development",
+								"value": "132233221"
+							},
+							{
+								"label": "Finance",
+								"value": "132233222"
+							},
+							{
+								"label": "Operations",
+								"value": "132233223"
+							},
+							{
+								"label": "Legal",
+								"value": "132233224"
+							}
+						],
+						"required": true
+					},
+					"visible": true
+				}
+			]
+		}],
+		"outputs": {
+			"location": "[location()]",
+			"env": "[steps('org').environment]",
+			"owner": "[steps('org').owner]",
+			"costcenter": "[steps('org').CostCenter]"
 
-    }
-  }
+		}
+	}
 }

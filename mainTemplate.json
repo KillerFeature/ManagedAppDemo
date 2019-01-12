@@ -1,63 +1,71 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-      "location": {
-          "defaultValue": "[resourceGroup().location]",
-          "type": "string",
-          "metadata": {
-              "description": "Location for all resources."
-          }
-      },
-      "storageAccountType": {
-          "defaultValue": "Standard_LRS",
-          "allowedValues": [
-              "Standard_LRS",
-              "Standard_GRS",
-              "Standard_ZRS",
-              "Premium_LRS"
-          ],
-          "type": "string",
-          "metadata": {
-              "description": "Storage Account type"
-          }
-      },
-      "kind": {
-          "defaultValue": "StorageV2",
-          "type": "string"
-      },
-      "accessTier": {
-          "defaultValue": "hot",
-          "type": "string"
-      },
-      "supportsHttpsTrafficOnly": {
-          "defaultValue": true,
-          "type": "bool"
-      },
-      "env": {"type": "string"},
-      "owner":{"type": "string"},
-      "costcenter":{"type":"string"}
-  },
-  "variables": {
-      "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
-  },
-  "resources": [
-      {
-          "type": "Microsoft.Storage/storageAccounts",
-          "sku": {
-              "name": "[parameters('storageAccountType')]"
-          },
-          "kind": "[parameters('kind')]",
-          "name": "[variables('storageAccountName')]",
-          "apiVersion": "2018-07-01",
-          "location": "[parameters('location')]",
-          "tags": {"env": "[parameters('env')]", "owner": "[parameters('owner')]", "costcenter": "[parameters('costcenter')]"},
-          "properties": {
-              "accessTier": "[parameters('accessTier')]",
-              "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"
-          },
-          "dependsOn": []
-      }
-  ],
-  "outputs": {}
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"location": {
+			"defaultValue": "[resourceGroup().location]",
+			"type": "string",
+			"metadata": {
+				"description": "Location for all resources."
+			}
+		},
+		"storageAccountType": {
+			"defaultValue": "Standard_LRS",
+			"allowedValues": [
+				"Standard_LRS",
+				"Standard_GRS",
+				"Standard_ZRS",
+				"Premium_LRS"
+			],
+			"type": "string",
+			"metadata": {
+				"description": "Storage Account type"
+			}
+		},
+		"kind": {
+			"defaultValue": "StorageV2",
+			"type": "string"
+		},
+		"accessTier": {
+			"defaultValue": "hot",
+			"type": "string"
+		},
+		"supportsHttpsTrafficOnly": {
+			"defaultValue": true,
+			"type": "bool"
+		},
+		"env": {
+			"type": "string"
+		},
+		"owner": {
+			"type": "string"
+		},
+		"costcenter": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
+	},
+	"resources": [{
+		"type": "Microsoft.Storage/storageAccounts",
+		"sku": {
+			"name": "[parameters('storageAccountType')]"
+		},
+		"kind": "[parameters('kind')]",
+		"name": "[variables('storageAccountName')]",
+		"apiVersion": "2018-07-01",
+		"location": "[parameters('location')]",
+		"tags": {
+			"env": "[parameters('env')]",
+			"owner": "[parameters('owner')]",
+			"costcenter": "[parameters('costcenter')]"
+		},
+		"properties": {
+			"accessTier": "[parameters('accessTier')]",
+			"supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"
+		},
+		"dependsOn": []
+	}],
+	"outputs": {}
 }
